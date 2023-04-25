@@ -2,8 +2,10 @@
 #include "Population.h"
 #include "Chromosome.h"
 #include "AI.h"
+#include "DoubleBuffering.h"
 int main()
 {
+	ScreenInit();
 	srand((unsigned int)time(NULL));
 
 	Population maxone(100, 80, 0.7, 0.04);
@@ -50,13 +52,21 @@ int main()
 		AI::GetInstance()->Reset();
 		AI::GetInstance()->SetGenes(bestChrom.GetChromosome());
 		AI::GetInstance()->CalcPositionAndDraw();
-		if (AI::GetInstance()->GetDistance() == 0 || AI::GetInstance()->GetGeneration() >= 1000) break;
-		// Sleep(1000);
+		if (AI::GetInstance()->GetDistance() == 0 || AI::GetInstance()->GetGeneration() >= 1000)
+		{
+			if (AI::GetInstance()->GetGeneration() < 1000)
+				ScreenPrint(MAPSIZE + 5, MAPSIZE / 2, "Congratulation... Find the path");
+			else
+				ScreenPrint(MAPSIZE + 5, MAPSIZE / 2, "Failed.. Can't find");
+			ScreenFlipping();
+			break;
+		}
+		ScreenFlipping();
 	}
-	if (AI::GetInstance()->GetGeneration() < 1000)
-		cout << "\n\t\tCongratulation... Find the path" << endl;
-	else
-		cout << "\n\t\tFailed.. Can't find" << endl;
+		
+	Sleep(5000);
+
+	// ScreenRelease();
 
 	return 0;
 }

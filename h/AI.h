@@ -3,7 +3,7 @@
 #include <vector>
 #include <windows.h>
 #include <math.h>
-
+#include <string>
 class AI
 {
 	GameMap gameMap;
@@ -11,6 +11,9 @@ class AI
 	vector<int> genes;
 	int generation;
 	double fitness;
+	std::string generation_String;
+	std::string fitness_String;
+	std::string distance_String;
 	AI()
 	{
 		position.x = 1;

@@ -1,4 +1,5 @@
 #include "AI.h"
+#include "DoubleBuffering.h"
 
 void AI::CalcPosition()
 {
@@ -91,7 +92,14 @@ void AI::CalcPositionAndDraw()
 			break;
 	}
 	gameMap.Draw();
-	cout << "\n\t\tGeneraction = " << generation << "\n\t\tbestFitness : " << fitness << "\n\t\tDistance : " << GetDistance();
+
+	generation_String = "Generation : " + to_string(generation);
+	fitness_String = "Fitness : " + to_string(fitness);
+	distance_String = "Distance : " + to_string(GetDistance());
+	
+	ScreenPrint(5, MAPSIZE + 2, generation_String.c_str());
+	ScreenPrint(5, MAPSIZE + 3, fitness_String.c_str());
+	ScreenPrint(5, MAPSIZE + 4, distance_String.c_str());
 }
 void AI::ChangePosition(int x, int y)
 {

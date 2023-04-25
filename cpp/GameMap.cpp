@@ -1,4 +1,5 @@
 #include "GameMap.h"
+#include "DoubleBuffering.h"
 #include <iostream>
 using namespace std;
 
@@ -77,26 +78,22 @@ void GameMap::SetMapVal(int x, int y, int value)
 
 void GameMap::Draw()
 {
-	Gotoxy(0, 0);
+	ScreenClear();
+
 	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < width; x++)
 		{
 			if (map[y][x] == 0)
-				cout << "  ";
+				ScreenPrint(x, y, " ");
 			if (map[y][x] == 1)
-				cout << "¢É";
+				ScreenPrint(x, y, "0");
 			if (map[y][x] == 2)
-				cout << "¢Ã";
+				ScreenPrint(x, y, "s");
 			if (map[y][x] == 3)
-				cout << "¡á";
+				ScreenPrint(x, y, "x");
 		}
-		cout << endl;
+		cout << '\n';
 	}
-}
-#include <Windows.h>
-void GameMap::Gotoxy(int x, int y)
-{
-	COORD pos = { x, y };
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+
 }
